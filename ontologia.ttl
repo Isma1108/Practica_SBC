@@ -1,0 +1,236 @@
+@prefix : <http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/> .
+
+<http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/autor_aficionado
+:autor_aficionado rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  rdfs:domain :Usuario ;
+                  rdfs:range :Autor .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/es_del_genero
+:es_del_genero rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain :Libro ;
+               rdfs:range :Genero .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/escrito_por
+:escrito_por rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdf:type owl:FunctionalProperty ;
+             rdfs:domain :Libro ;
+             rdfs:range :Autor .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/especializado_en
+:especializado_en rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  rdf:type owl:FunctionalProperty ;
+                  rdfs:domain :Autor ;
+                  rdfs:range :Genero .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/genero_aficionado
+:genero_aficionado rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdfs:domain :Usuario ;
+                   rdfs:range :Genero .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/ha_leido
+:ha_leido rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          rdfs:domain :Usuario ;
+          rdfs:range :Libro .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/lee_en
+:lee_en rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        rdf:type owl:FunctionalProperty ;
+        rdfs:domain :Usuario ;
+        rdfs:range :Lugar .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/critica
+:critica rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdfs:domain :Libro ;
+         rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/dificultad
+:dificultad rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain :Libro ;
+            rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/edad
+:edad rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdfs:domain :Usuario ;
+      rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/estilo
+:estilo rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain :Autor ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/experiencia
+:experiencia rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :Autor ;
+             rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/frequencia
+:frequencia rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain :Usuario ;
+            rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/gusto_critica
+:gusto_critica rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain :Usuario ;
+               rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/gusto_popularidad
+:gusto_popularidad rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain :Usuario ;
+                   rdfs:range xsd:float .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/momento
+:momento rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdfs:domain :Usuario ;
+         rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/nombre
+:nombre rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain :Autor ,
+                    :Genero ,
+                    :Libro ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/num_paginas
+:num_paginas rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :Libro ;
+             rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/periodo
+:periodo rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdfs:domain :Usuario ;
+         rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/popularidad
+:popularidad rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :Autor ;
+             rdfs:range xsd:double .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/publico
+:publico rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdfs:domain :Libro ;
+         rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/titulo
+:titulo rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain :Libro ;
+        rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/ventas
+:ventas rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain :Libro ;
+        rdfs:range xsd:positiveInteger .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Autor
+:Autor rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Genero
+:Genero rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Libro
+:Libro rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Lugar
+:Lugar rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Usuario
+:Usuario rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Concurrido
+:Concurrido rdf:type owl:NamedIndividual ,
+                     :Lugar .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Tranquilo
+:Tranquilo rdf:type owl:NamedIndividual ,
+                    :Lugar .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Autor
+                :Genero
+                :Libro
+                :Usuario
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
