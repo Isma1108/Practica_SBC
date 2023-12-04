@@ -13,5 +13,19 @@ Preguntas al Usuario
     9. Te gustan los libros bestseller?
     10. Confias en las criticas?
 
+Abstracción:
+    EDAD
+        si edad < 7 => abs.edad = infantil
+        si no si edad < 12 => abs.edad = juvenil
+        si no se edad < 16 => abs.edad = adolescente
+        si no abs.edad = adulto
+    FRECUENCIA y PERIODO
+        si frecuencia = 7 => frecuencia = diaria
+        si no si frecuencia > 3 => frecuencia = frecuente
+        si no si frecuncia > 1 => frecuencia = ocasional
+        si no frecuencia = semanal
+        si es 0 explota
+
+
 Respuestas:
     3 libros a lo sumo, la justificacion y los pasos.
