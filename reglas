@@ -1,0 +1,24 @@
+1 · poda de libros
+	genero => guardar libros generos similares
+	si Critica => podar libros con mala critica
+
+	si libro.largo + libro.genero is dificil + libro.autor is dificil => libro.dificil
+	si libro.genero is usuario.genero => libro.dificultad <= dificultadMedia
+	si usuario.autor is usuario.autor => libro.dificultad <= dificultadFacil
+
+	si edad is pequeño => faciles(libro) + juvenil(libro)
+
+
+	si diaria(frequencia) * corta(disponibilidad) => cualquier largo 
+	si diaria(frecuencia) * media(disponibilidad) => libro.largo <= medio
+	si ocasional(frecuencia) * 
+
+	podar por el largo del libro en funcion de la disponibilidad, frecuencia y lugar de lectura
+	
+2 · 
+
+
+
+
+
+ultimo. 
