@@ -1,3 +1,106 @@
+;;; ---------------------------------------------------------
+;;; ontologia.clp
+;;; Translated by owl2clips
+;;; Translated to CLIPS from ontology ontologia.ttl
+;;; :Date 07/12/2023 17:30:35
+
+(defclass Autor
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (slot especializado_en
+        (type INSTANCE)
+        (create-accessor read-write))
+    (slot nombre
+        (type STRING)
+        (create-accessor read-write))
+)
+
+(defclass Genero
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (slot nombre
+        (type STRING)
+        (create-accessor read-write))
+)
+
+(defclass Libro
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (multislot es_del_genero
+        (type INSTANCE)
+        (create-accessor read-write))
+    (slot escrito_por
+        (type INSTANCE)
+        (create-accessor read-write))
+    (slot critica
+        (type FLOAT)
+        (create-accessor read-write))
+    (slot dificultad
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot edad
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot nombre
+        (type STRING)
+        (create-accessor read-write))
+    (slot num_paginas
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot ventas
+        (type INTEGER)
+        (create-accessor read-write))
+)
+
+(defclass Recomendacion
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (slot libro_recomendado
+        (type INSTANCE)
+        (create-accessor read-write))
+    (slot motivo
+        (type STRING)
+        (create-accessor read-write))
+)
+
+(defclass Usuario
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (multislot gusta_autor
+        (type INSTANCE)
+        (create-accessor read-write))
+    (multislot gusta_genero
+        (type INSTANCE)
+        (create-accessor read-write))
+    (slot buena_critica
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot buena_ventas
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot dificultad
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot edad
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot lugar
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot tiempo_disponible
+        (type SYMBOL)
+        (create-accessor read-write))
+)
+
+(definstances instances
+    (terror of Genero (nombre "terror"))
+)
+
 ;; -----------------------------------------------------
 ;; AQUI IRIAN TODAS LAS CLASES DE LA ONTOLOGIA CREADAS 
 ;; CON OWL2CLIPS A PARTIR DEL FICHERO TURTLE DE PROTEGE
@@ -111,12 +214,12 @@
 )
 
 
-(deffunction MAIN::preguntaConIndices (?pregunta $?valores-posibles)
+(deffunction MAIN::preguntaConIndices (?pregunta $?valoresPosibles)
    (bind ?indice 1)
    (bind ?linea (format nil "%s" ?pregunta))
    (printout t ?linea crlf)
 
-   (progn$ (?valor $?valores-posibles)
+   (progn$ (?valor $?valoresPosibles)
       (bind ?linea (format nil "  %d. %s" ?indice ?valor))
       (printout t ?linea crlf)
       (bind ?indice (+ ?indice 1))
@@ -127,6 +230,27 @@
    ?resp
 )
 
+(deffunction MAIN::preguntaConRespuestaMultiple (?pregunta $?valores-posibles)
+    (bind ?linea (format nil "%s" ?pregunta))
+    (printout t ?linea crlf)
+    (progn$ (?var ?valores-posibles)
+            (bind ?linea (format nil "  %d. %s" ?var-index ?var))
+            (printout t ?linea crlf)
+    )
+    (format t "%s" "Indica los indices separados por un espacio: ")
+    (bind ?resp (readline))
+    (bind ?numeros (str-explode ?resp))
+    (bind $?lista (create$ ))
+    (progn$ (?var ?numeros)
+        (if (and (integerp ?var) (and (>= ?var 1) (<= ?var (length$ ?valores-posibles))))
+            then
+                (if (not (member$ ?var ?lista))
+                    then (bind ?lista (insert$ ?lista (+ (length$ ?lista) 1) ?var))
+                )
+        )
+    )
+    ?lista
+)
 
 ;; EN CADA REGALA QUE SE EJECUTA COMO ULTIMA EN CADA MODULO,
 ;; USAREMOS (focus nuevo_modulo) para pasar al siguiente modulo.
@@ -134,6 +258,12 @@
 ;; ---------------------------------------------------
 ;; ---------- MODULO DE RECOGIDA DE DATOS ------------
 ;; ---------------------------------------------------
+
+(defrule recogidaDatos::reglaInicial
+	(declare (salience 10))
+	=>
+	(assert (preferenciasUsuario))
+)
 
 (defrule recogidaDatos::determinarEdad "Se pregunta por la edad"
 	(not (datosUsuario))
@@ -191,13 +321,69 @@
 	=> 
 	(bind ?resp (preguntaSiNo "Prefieres los libros mas vendidos? "))
 	(modify ?datos (buenaVenta ?resp))
+  (assert (datosRecogidos))
 	(printout t crlf)
-	(focus impresionResultado)
 )
 
+(defrule recogidaDatos::determinarGenerosFavoritos
+    (not (preguntaGenerosPreferidos))
+    (datosRecogidos)
+    ?pref <- (preferenciasUsuario)
+    =>
+    (bind ?resp (preguntaSiNo "Estas interesado en algun genero en concreto? "))
+    (if (eq ?resp TRUE) then
+        (bind $?instanciasGenero (find-all-instances ((?inst Genero)) TRUE))
+        (bind $?nombresGenero (create$))
 
-;;Falta preguntar por preferencias de genero y autor si es que las hay
+        (loop-for-count (?i 1 (length$ $?instanciasGenero)) do
+            (bind ?inst (nth$ ?i $?instanciasGenero))
+            (bind ?nombre (send ?inst get-nombre))
+            (bind $?nombresGenero (insert$ $?nombresGenero ?i ?nombre))
+        )
 
+        (bind ?generosEscogidos (preguntaConRespuestaMultiple "Escoge los generos en los que estas interesado: " $?nombresGenero))
+
+		    (bind $?respuesta (create$))
+		    (loop-for-count (?i 1 (length$ ?generosEscogidos)) do
+			      (bind ?curr-index (nth$ ?i ?generosEscogidos))
+			      (bind ?curr-epc (nth$ ?curr-index $?instanciasGenero))
+			      (bind $?respuesta(insert$ $?respuesta (+ (length$ $?respuesta) 1) ?curr-epc))
+		    )
+		    (modify ?pref (generos $?respuesta))
+		    (assert (preguntaGenerosPreferidos))
+   )
+)
+
+(defrule recogidaDatos::determinarAutoresFavoritos
+    (not (preguntaAutoresPreferidos))
+    (datosRecogidos)
+    (preguntaGenerosPreferidos)
+    ?pref <- (preferenciasUsuario)
+    =>
+    (bind ?resp (preguntaSiNo "Estas interesado en algun autor en concreto? "))
+    (if (eq ?resp TRUE) then
+        (bind $?instanciasAutor (find-all-instances ((?inst Autor)) TRUE))
+        (bind $?nombresAutor (create$))
+
+        (loop-for-count (?i 1 (length$ $?instanciasAutor)) do
+            (bind ?inst (nth$ ?i $?instanciasAutor))
+            (bind ?nombre (send ?inst get-nombre))
+            (bind $?nombresAutor (insert$ $?nombresAutor ?i ?nombre))
+        )
+
+        (bind ?autoresEscogidos (preguntaConRespuestaMultiple "Escoge los autores en los que estas interesado: " $?nombresAutor))
+
+		    (bind $?respuesta (create$))
+		    (loop-for-count (?i 1 (length$ ?autoresEscogidos)) do
+			      (bind ?curr-index (nth$ ?i ?autoresEscogidos))
+			      (bind ?curr-epc (nth$ ?curr-index $?instanciasAutor))
+			      (bind $?respuesta(insert$ $?respuesta (+ (length$ $?respuesta) 1) ?curr-epc))
+		    )
+		    (modify ?pref (autores $?respuesta))
+		    (assert (preguntaAutoresPreferidos))
+   )
+   (focus impresionResultado)
+)
 
 
 
@@ -208,9 +394,9 @@
 ; Se debe crear una instancia de usuario con la abstraccion de todos los datos obtenidos
 
 
-(defrule inferir-datos::tiempo-disponible "Se determina el tiempo del que dispone el usuario para leer"
-    ?q <- (datos-usuario (periodo ?p) (frecuencia ?f))
-    (not (tiempo-disponible-definido))
+(defrule abstraccionDatos::tiempoDisponible "Se determina el tiempo del que dispone el usuario para leer"
+    ?q <- (datosUsuario (periodo ?p) (frecuencia ?f))
+    (not (tiempoDisponibleDefinido))
     =>
     (if (eq ?f DIARIA)
         then (bind ?frecuencia 4)
@@ -239,13 +425,13 @@
     )
     (bind ?usuario (make-instance usuario of Usuario))
     (send ?usuario put-tiempo_disponible ?tp)
-    (assert (tiempo-disponible-definido))
+    (assert (tiempoDisponibleDefinido))
 )
 
 (defrule abstraccionDatos::edad
     ?usuario <- (object (is-a Usuario))
     ?datos <- (datosUsuario (edad ?e))
-    (not (edad-definida))
+    (not (edadDefinida))
     =>
     (if (>= ?e 18)
         then (bind ?edad ADULTO)
@@ -258,26 +444,27 @@
         )
     )
     (send ?usuario put-edad ?edad)
-    (assert edad-definida)
+    (assert (edadDefinida))
 )
 
 (defrule abstraccionDatos::lugar
     ?usuario <- (object (is-a Usuario))
     ?datos <- (datosUsuario (lugarLectura ?l))
-    (not lugar-definido)
+    (not (lugarDefinido))
     =>
     (send ?usuario put-lugar ?l)
-    (assert lugar-definido)
+    (assert (lugarDefinido))
 )
 
 (defrule abstraccionDatos::confianza
     ?usuario <- (object (is-a Usuario))
     ?datos <- (datosUsuario (buenaCritica ?c) (buenaVenta ?v))
-    (not confianza-definida)
+    (not (confianzaDefinida))
     =>
-    (send ?usuario put-buenaCritica ?c)
-    (send ?usuario put-buenaVenta ?v)
-    (assert confianza-definida)
+    (send ?usuario put-buena_critica ?c)
+    (send ?usuario put-buena_ventas ?v)
+    (assert (confianzaDefinida))
+		(focus impresionResultado)
 )
 
 ;; --------------------------------------------------------------------
