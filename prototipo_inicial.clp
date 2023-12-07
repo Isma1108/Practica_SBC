@@ -208,6 +208,77 @@
 ; Se debe crear una instancia de usuario con la abstraccion de todos los datos obtenidos
 
 
+(defrule inferir-datos::tiempo-disponible "Se determina el tiempo del que dispone el usuario para leer"
+    ?q <- (datos-usuario (periodo ?p) (frecuencia ?f))
+    (not (tiempo-disponible-definido))
+    =>
+    (if (eq ?f DIARIA)
+        then (bind ?frecuencia 4)
+        else (if (eq ?f FRECUENTE)
+            then (bind ?frecuencia 3)
+            else (if (eq ?f OCASIONAL)
+                then (bind ?frecuencia 2)
+                else (bind ?frecuencia 1)
+            )
+        )
+    )
+    (if (eq ?p BAJO)
+        then (bind ?periodo 1)
+        else (if (eq ?p MEDIO)
+            then (bind ?periodo 2)
+            else (bind ?periodo 3)
+        )
+    )
+    (bind ?tiempoDisponible (+ (* 0.7 ?frecuencia) (* 0.3 ?periodo)))
+    (if (>= ?tiempoDisponible 3.0)
+        then (bind ?tp ALTO)
+        else (if (>= ?tiempoDisponible 2.0)
+            then (bind ?tp MEDIO)
+            else (bind ?tp BAJO)
+        )
+    )
+    (bind ?usuario (make-instance usuario of Usuario))
+    (send ?usuario put-tiempo_disponible ?tp)
+    (assert (tiempo-disponible-definido))
+)
+
+(defrule abstraccionDatos::edad
+    ?usuario <- (object (is-a Usuario))
+    ?datos <- (datosUsuario (edad ?e))
+    (not (edad-definida))
+    =>
+    (if (>= ?e 18)
+        then (bind ?edad ADULTO)
+        else (if (>= ?e 13)
+            then (bind ?edad ADOLESCENTE)
+            else (if (>= ?e 6)
+                then (bind ?edad JUVENIL)
+                else (bind ?edad INFANTIL)
+            )
+        )
+    )
+    (send ?usuario put-edad ?edad)
+    (assert edad-definida)
+)
+
+(defrule abstraccionDatos::lugar
+    ?usuario <- (object (is-a Usuario))
+    ?datos <- (datosUsuario (lugarLectura ?l))
+    (not lugar-definido)
+    =>
+    (send ?usuario put-lugar ?l)
+    (assert lugar-definido)
+)
+
+(defrule abstraccionDatos::confianza
+    ?usuario <- (object (is-a Usuario))
+    ?datos <- (datosUsuario (buenaCritica ?c) (buenaVenta ?v))
+    (not confianza-definida)
+    =>
+    (send ?usuario put-buenaCritica ?c)
+    (send ?usuario put-buenaVenta ?v)
+    (assert confianza-definida)
+)
 
 ;; --------------------------------------------------------------------
 ;; ------------------ MODULO DE ASOCIACION HEURISTICA -----------------
