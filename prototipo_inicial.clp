@@ -295,12 +295,26 @@
 	(multislot autores (type INSTANCE))
 )
 
+(deftemplate MAIN::libroConPuntuacion
+    (slot nombre (type STRING))   
+    (slot autor (type STRING))
+    (slot puntos (type INTEGER))
+    (multislot motivos (type STRING))
+)
+
+(deftemplate MAIN::libroRecomendado
+    (slot nombre (type STRING))   
+    (slot autor (type STRING))
+    (multislot motivos (type STRING))
+)
+
+
 ;; ----------------------------------------
 ;; ------------- FUNCIONES ----------------
 ;; ----------------------------------------
 
 ;; Aqui todas las deffunctions que necesitemos 
-;; (haran falta para las preguntas, cuando por ejemplo necesitemos ver que la respuesta tiene un formato adecuado)
+;; (haran falta para las preguntas
 
 ;;; Funcion para hacer una pregunta con respuesta numerica unica
 (deffunction MAIN::preguntaNumerica (?pregunta)
@@ -585,11 +599,48 @@
     (send ?usuario put-gusta_genero $?generos)
     (send ?usuario put-gusta_autor $?autores)
     (assert (favoritosDefinidos))
-	(focus impresionResultado)
+	  (focus asociacionHeuristica)
 )
 ;; --------------------------------------------------------------------
 ;; ------------------ MODULO DE ASOCIACION HEURISTICA -----------------
 ;; --------------------------------------------------------------------
+
+(defrule asociacionHeuristica::crearLibrosConPuntuacion
+    ?usuario <- (object (is-a Usuario))
+    ?libro <- (object (is-a Libro))
+    => 
+    (bind ?puntos 0)
+    (bind $?motivos (create$))
+
+    ;Actualizamos los puntos y los motivos en funcion de los atributos del libro que
+    ;coinciden con las preferencias del usuario
+    ;Las ponderaciones estan por determinar
+
+    ;1. Las edades coinciden
+    (bind ?uEdad (send ?usuario get-edad))
+    (bind ?lEdad (send ?libro get-edad))
+    
+    (if (eq ?uEdad ?lEdad) then
+        (bind ?puntos (+ ?puntos 5))
+        (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Es adecuado para tu edad"))
+    )
+
+    ;etc
+
+    ;Al final creamos el hecho
+    (assert (libroConPuntuacion
+        (nombre (send ?libro get-nombre))
+        (autor (send (send ?libro get-escrito_por) get-nombre))
+        (puntos ?puntos)
+        (motivos $?motivos)
+    ))
+) 
+
+(defrule asociacionHeuristica::crearLibrosRecomendados
+    (declare (salience -10)) ;Para que se ejecute despues de la anterior
+    => 
+    (focus impresionResultado)
+)
 
 
 
