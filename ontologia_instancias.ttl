@@ -58,24 +58,6 @@
 #    Data properties
 #################################################################
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#tiempo_disponible
-:tiempo_disponible rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain :Usuario ;
-                   rdfs:range [ rdf:type rdfs:Datatype ;
-                                owl:oneOf [ rdf:type rdf:List ;
-                                            rdf:first "medio" ;
-                                            rdf:rest [ rdf:type rdf:List ;
-                                                       rdf:first "mucho" ;
-                                                       rdf:rest [ rdf:type rdf:List ;
-                                                                  rdf:first "poco" ;
-                                                                  rdf:rest rdf:nil
-                                                                ]
-                                                     ]
-                                          ]
-                              ] .
-
-
 ###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/buena_critica
 :buena_critica rdf:type owl:DatatypeProperty ,
                         owl:FunctionalProperty ;
@@ -99,8 +81,9 @@
 
 
 ###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/dificultad
-:dificultad rdf:type owl:DatatypeProperty ,
-                     owl:FunctionalProperty ;
+:dificultad rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdf:type owl:FunctionalProperty ;
             rdfs:domain :Libro ,
                         :Usuario ;
             rdfs:range [ rdf:type rdfs:Datatype ;
@@ -179,6 +162,24 @@
              rdfs:range xsd:integer .
 
 
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/tiempo_disponible
+:tiempo_disponible rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain :Usuario ;
+                   rdfs:range [ rdf:type rdfs:Datatype ;
+                                owl:oneOf [ rdf:type rdf:List ;
+                                            rdf:first "medio" ;
+                                            rdf:rest [ rdf:type rdf:List ;
+                                                       rdf:first "mucho" ;
+                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                  rdf:first "poco" ;
+                                                                  rdf:rest rdf:nil
+                                                                ]
+                                                     ]
+                                          ]
+                              ] .
+
+
 ###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/ventas
 :ventas rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
@@ -215,37 +216,118 @@
 #    Individuals
 #################################################################
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Acción
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Alejandro_Dumas
+:Alejandro_Dumas rdf:type owl:NamedIndividual ,
+                          :Autor ;
+                 :nombre "Alejandro Dumas" .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Bram_Stoker
+:Bram_Stoker rdf:type owl:NamedIndividual ,
+                      :Autor ;
+             :nombre "Bram Stoker" .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Dracula
+:Dracula rdf:type owl:NamedIndividual ,
+                  :Libro ;
+         :es_del_genero :Terror ;
+         :escrito_por :Bram_Stoker ;
+         :critica 9.2 ;
+         :edad "adolescente" ;
+         :nombre "Dracula" ;
+         :num_paginas 418 ;
+         :ventas 200000000 .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#El_Señor_de_los_Anillos
+:El_Señor_de_los_Anillos rdf:type owl:NamedIndividual ,
+                                  :Libro ;
+                         :es_del_genero :Aventuras ,
+                                        :Fantasia ;
+                         :escrito_por :J.R.R._Tolkien ;
+                         :critica 9.6 ;
+                         :edad "adolescente" ;
+                         :nombre "El Señor de los Anillos" ;
+                         :num_paginas 576 ;
+                         :ventas 110000000 .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#J.R.R._Tolkien
+:J.R.R._Tolkien rdf:type owl:NamedIndividual ,
+                         :Autor ;
+                :nombre "J.R.R. Tolkien" .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Los_tres_mosqueteros
+:Los_tres_mosqueteros rdf:type owl:NamedIndividual ,
+                               :Libro ;
+                      :es_del_genero :Acción ,
+                                     :Aventuras ;
+                      :escrito_por :Alejandro_Dumas ;
+                      :critica 9.0 ;
+                      :edad "juvenil" ;
+                      :nombre "Los tres mosqueteros" ;
+                      :num_paginas 617 ;
+                      :ventas 50000000 .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Acción
 :Acción rdf:type owl:NamedIndividual ,
                  :Genero ;
         :nombre "Acción" .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Aventuras
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Agatha_Christie
+:Agatha_Christie rdf:type owl:NamedIndividual ,
+                          :Autor ;
+                 :nombre "Agatha Christie" .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Asesinato_en_el_Orient_Express
+:Asesinato_en_el_Orient_Express rdf:type owl:NamedIndividual ,
+                                         :Libro ;
+                                :es_del_genero :Misterio ,
+                                               :Suspense ;
+                                :escrito_por :Agatha_Christie ;
+                                :critica 9.0 ;
+                                :edad "adolescente" ;
+                                :nombre "Asesinato en el Orient Express" ;
+                                :num_paginas 256 ;
+                                :ventas 100000000 .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Aventuras
 :Aventuras rdf:type owl:NamedIndividual ,
                     :Genero ;
            :nombre "Aventuras" .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Ciencia_ficción
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Ciencia_ficción
 :Ciencia_ficción rdf:type owl:NamedIndividual ,
                           :Genero ;
                  :nombre "Ciencia ficción" .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Comedia
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Comedia
 :Comedia rdf:type owl:NamedIndividual ,
                   :Genero ;
          :nombre "Comedia" .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Fantasia
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Fantasia
 :Fantasia rdf:type owl:NamedIndividual ,
                    :Genero ;
           :nombre "Fantasia" .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Los_juegos_del_hambre
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Groucho_Marx
+:Groucho_Marx rdf:type owl:NamedIndividual ,
+                       :Autor ;
+              :nombre "Groucho Marx" .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Los_juegos_del_hambre
 :Los_juegos_del_hambre rdf:type owl:NamedIndividual ,
                                 :Libro ;
                        :es_del_genero :Aventuras ,
@@ -258,25 +340,38 @@
                        :ventas 23000000 .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Misterio
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Memorias_de_un_amante_sarnoso
+:Memorias_de_un_amante_sarnoso rdf:type owl:NamedIndividual ,
+                                        :Libro ;
+                               :es_del_genero :Comedia ,
+                                              :Romance ;
+                               :escrito_por :Groucho_Marx ;
+                               :critica 8.6 ;
+                               :edad "adulto" ;
+                               :nombre "Memorias de un amante sarnoso" ;
+                               :num_paginas 224 ;
+                               :ventas 25000 .
+
+
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Misterio
 :Misterio rdf:type owl:NamedIndividual ,
                    :Genero ;
           :nombre "Misterio" .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Romance
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Romance
 :Romance rdf:type owl:NamedIndividual ,
                   :Genero ;
          :nombre "Romance" .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Suspense
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Suspense
 :Suspense rdf:type owl:NamedIndividual ,
                    :Genero ;
           :nombre "Suspense" .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Suzanne_Collins
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Suzanne_Collins
 :Suzanne_Collins rdf:type owl:NamedIndividual ,
                           :Autor ;
                  :especializado_en :Aventuras ,
@@ -284,7 +379,7 @@
                  :nombre "Suzanne Collins" .
 
 
-###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5#Terror
+###  http://www.semanticweb.org/alex/ontologies/2023/11/untitled-ontology-5/Terror
 :Terror rdf:type owl:NamedIndividual ,
                  :Genero ;
         :nombre "Terror" .
