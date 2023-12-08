@@ -432,7 +432,7 @@
 	=> 
 	(bind ?resp (preguntaSiNo "Prefieres los libros mas vendidos? "))
 	(modify ?datos (buenaVenta ?resp))
-  (assert (datosRecogidos))
+    (assert (datosRecogidos))
 	(printout t crlf)
 )
 
@@ -454,15 +454,15 @@
 
         (bind ?generosEscogidos (preguntaConRespuestaMultiple "Escoge los generos en los que estas interesado: " $?nombresGenero))
 
-		    (bind $?respuesta (create$))
-		    (loop-for-count (?i 1 (length$ ?generosEscogidos)) do
-			      (bind ?curr-index (nth$ ?i ?generosEscogidos))
-			      (bind ?curr-epc (nth$ ?curr-index $?instanciasGenero))
-			      (bind $?respuesta(insert$ $?respuesta (+ (length$ $?respuesta) 1) ?curr-epc))
-		    )
-		    (modify ?pref (generos $?respuesta))
-		    (assert (preguntaGenerosPreferidos))
+		(bind $?respuesta (create$))
+		(loop-for-count (?i 1 (length$ ?generosEscogidos)) do
+			    (bind ?curr-index (nth$ ?i ?generosEscogidos))
+			    (bind ?curr-epc (nth$ ?curr-index $?instanciasGenero))
+			    (bind $?respuesta(insert$ $?respuesta (+ (length$ $?respuesta) 1) ?curr-epc))
+		)
+		(modify ?pref (generos $?respuesta))
    )
+    (assert (preguntaGenerosPreferidos))
 )
 
 (defrule recogidaDatos::determinarAutoresFavoritos
@@ -491,9 +491,9 @@
 			      (bind $?respuesta(insert$ $?respuesta (+ (length$ $?respuesta) 1) ?curr-epc))
 		    )
 		    (modify ?pref (autores $?respuesta))
-		    (assert (preguntaAutoresPreferidos))
-   )
-   (focus impresionResultado)
+    )
+    (assert (preguntaAutoresPreferidos))
+    (focus abstraccionDatos)
 )
 
 
@@ -573,11 +573,20 @@
     (not (confianzaDefinida))
     =>
     (send ?usuario put-buena_critica ?c)
-    (send ?usuario put-buena_ventas ?v)
+    (send ?usuario put-buenas_ventas ?v)
     (assert (confianzaDefinida))
-		(focus impresionResultado)
 )
 
+(defrule abstraccionDatos::favoritos
+    ?usuario <- (object (is-a Usuario))
+    ?pref <- (preferenciasUsuario (generos $?generos) (autores $?autores))
+    (not (favoritosDefinidos))
+    =>
+    (send ?usuario put-gusta_genero $?generos)
+    (send ?usuario put-gusta_autor $?autores)
+    (assert (favoritosDefinidos))
+	(focus impresionResultado)
+)
 ;; --------------------------------------------------------------------
 ;; ------------------ MODULO DE ASOCIACION HEURISTICA -----------------
 ;; --------------------------------------------------------------------
