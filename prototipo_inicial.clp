@@ -666,12 +666,17 @@
 ;; --------------------------------------------------------------------
 
 
-(defrule impresionResultado::imprime_gay "regla inicial"
+(defrule impresionResultado::imprimir "regla inicial"
 	(declare (salience 10))
+    ?l <- (libroConPuntuacion (index ?p1&: (<= ?p1 3)) (libro ?libro) (motivos $?motivos))
+    (forall (libroConPuntuacion (index ?p2)) (test (<= ?p1 ?p2)))
 	=>
-	(printout t crlf)
-	(printout t "Te recomendamos el libro Introduction to Algorithms, una preciosa novela de ciencia ficcion!" crlf)
-	(printout t crlf)
+	(printout t "Te recomendamos el libro" (send ?libro get-nombre)"." crlf)
+    (loop-for-count (?i 1 (length$ $?motivos)) do
+        (if (= ?i 1) then (printout t "Los motivos son: " crlf))
+        (printout t "    "(nth$ ?i $?motivos) crlf)
+    )
+    (retract ?l)
 )
 
 
