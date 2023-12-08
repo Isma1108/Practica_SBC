@@ -115,7 +115,7 @@
          (es_del_genero  [Misterio] [Suspense])
          (escrito_por  [Agatha_Christie])
          (critica  9.0)
-         (edad  "adolescente")
+         (edad  ADOLESCENTE)
          (nombre  "Asesinato en el Orient Express")
          (num_paginas  256)
          (ventas  100000000)
@@ -141,7 +141,7 @@
          (es_del_genero  [Terror])
          (escrito_por  [Bram_Stoker])
          (critica  9.2)
-         (edad  "adolescente")
+         (edad  ADOLESCENTE)
          (nombre  "Dracula")
          (num_paginas  418)
          (ventas  200000000)
@@ -151,7 +151,7 @@
          (es_del_genero  [Aventuras] [Fantasia])
          (escrito_por  [J.R.R._Tolkien])
          (critica  9.6)
-         (edad  "adolescente")
+         (edad  ADOLESCENTE)
          (nombre  "El Señor de los Anillos")
          (num_paginas  576)
          (ventas  110000000)
@@ -173,7 +173,7 @@
          (es_del_genero  [Aventuras] [Ciencia_ficción])
          (escrito_por  [Suzanne_Collins])
          (critica  8.0)
-         (edad  "adolescente")
+         (edad  ADOLESCENTE)
          (nombre  "Los juegos del hambre")
          (num_paginas  374)
          (ventas  23000000)
@@ -183,7 +183,7 @@
          (es_del_genero  [Acción] [Aventuras])
          (escrito_por  [Alejandro_Dumas])
          (critica  9.0)
-         (edad  "juvenil")
+         (edad  JUVENIL)
          (nombre  "Los tres mosqueteros")
          (num_paginas  617)
          (ventas  50000000)
@@ -193,7 +193,7 @@
          (es_del_genero  [Comedia] [Romance])
          (escrito_por  [Groucho_Marx])
          (critica  8.6)
-         (edad  "adulto")
+         (edad  ADULTO)
          (nombre  "Memorias de un amante sarnoso")
          (num_paginas  224)
          (ventas  25000)
@@ -295,10 +295,17 @@
 	(multislot autores (type INSTANCE))
 )
 
+;(deftemplate MAIN::libroConPuntuacion
+;    (slot nombre (type STRING))   
+;    (slot autor (type STRING))
+;    (slot puntos (type INTEGER))
+;    (multislot motivos (type STRING))
+;)
+
 (deftemplate MAIN::libroConPuntuacion
-    (slot nombre (type STRING))   
-    (slot autor (type STRING))
-    (slot puntos (type INTEGER))
+    (slot index (type INTEGER))
+    (slot libro (type INSTANCE))
+    (slot puntuacion (type INTEGER))
     (multislot motivos (type STRING))
 )
 
@@ -629,12 +636,22 @@
 
     ;Al final creamos el hecho
     (assert (libroConPuntuacion
-        (nombre (send ?libro get-nombre))
-        (autor (send (send ?libro get-escrito_por) get-nombre))
-        (puntos ?puntos)
+        (index (+ (length$ (find-all-facts((?lp libroConPuntuacion)) TRUE)) 1))
+        (libro ?libro)
+        (puntuacion ?puntos)
         (motivos $?motivos)
     ))
-) 
+)
+
+(defrule asociacionHeuristica::ordenacion
+    (declare(salience -10))
+    ?l1 <- (libroConPuntuacion (index ?index1) (libro ?libro1) (puntuacion ?puntuacion1) (motivos $?motivos1))
+    ?l2 <- (libroConPuntuacion (index ?index2&:(= ?index2 (+ ?index1 1))) (libro ?libro2) (puntuacion ?puntuacion2&:(> ?puntuacion2 ?puntuacion1)) (motivos $?motivos2))
+    =>
+    (modify ?l1 (libro ?libro2) (puntuacion ?puntuacion2) (motivos $?motivos2))
+    (modify ?l2 (libro ?libro1) (puntuacion ?puntuacion1) (motivos $?motivos1))
+
+)
 
 (defrule asociacionHeuristica::crearLibrosRecomendados
     (declare (salience -10)) ;Para que se ejecute despues de la anterior
