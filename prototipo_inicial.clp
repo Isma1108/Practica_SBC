@@ -295,12 +295,6 @@
 	(multislot autores (type INSTANCE))
 )
 
-;(deftemplate MAIN::libroConPuntuacion
-;    (slot nombre (type STRING))   
-;    (slot autor (type STRING))
-;    (slot puntos (type INTEGER))
-;    (multislot motivos (type STRING))
-;)
 
 (deftemplate MAIN::libroConPuntuacion
     (slot index (type INTEGER))
@@ -483,6 +477,8 @@
 		)
 		(modify ?pref (generos $?respuesta))
    )
+
+	  (printout t crlf)
     (assert (preguntaGenerosPreferidos))
 )
 
@@ -513,6 +509,7 @@
 		    )
 		    (modify ?pref (autores $?respuesta))
     )
+	  (printout t crlf)
     (assert (preguntaAutoresPreferidos))
     (focus abstraccionDatos)
 )
@@ -650,15 +647,13 @@
     =>
     (modify ?l1 (libro ?libro2) (puntuacion ?puntuacion2) (motivos $?motivos2))
     (modify ?l2 (libro ?libro1) (puntuacion ?puntuacion1) (motivos $?motivos1))
-
 )
 
-(defrule asociacionHeuristica::crearLibrosRecomendados
-    (declare (salience -10)) ;Para que se ejecute despues de la anterior
+(defrule asociacionHeuristica::saltoDeModulo
+    (declare (salience -20))
     => 
     (focus impresionResultado)
 )
-
 
 
 ;; --------------------------------------------------------------------
@@ -666,18 +661,28 @@
 ;; --------------------------------------------------------------------
 
 
-(defrule impresionResultado::imprimir "regla inicial"
-	(declare (salience 10))
+(defrule impresionResultado::banner "regla inicial"
+    (declare (salience 10))
+    =>
+    (printout t crlf)
+    (printout t "--------------------------------------------------------------" crlf)
+    (printout t "---------------------- Recomendaciones -----------------------" crlf)
+	  (printout t "--------------------------------------------------------------" crlf)
+	  (printout t crlf)
+)
+
+(defrule impresionResultado::imprimir "impresion del resultado"
     ?l <- (libroConPuntuacion (index ?p1&: (<= ?p1 3)) (libro ?libro) (motivos $?motivos))
     (forall (libroConPuntuacion (index ?p2)) (test (<= ?p1 ?p2)))
-	=>
-	(printout t "Te recomendamos el libro" (send ?libro get-nombre)"." crlf)
+    =>
+    (printout t "Te recomendamos el libro " (send ?libro get-nombre)"." crlf)
     (loop-for-count (?i 1 (length$ $?motivos)) do
         (if (= ?i 1) then (printout t "Los motivos son: " crlf))
         (printout t "    "(nth$ ?i $?motivos) crlf)
     )
     (retract ?l)
 )
+
 
 
 
