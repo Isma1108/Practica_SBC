@@ -211,4 +211,49 @@
          (nombre  "Terror")
     )
 
+    
+    ([El_ojo_de_Argon] of Libro
+        (es_del_genero [Aventuras] [Fantasia])
+        (escrito_por [Jim_Theis])
+        (critica 2.4)
+        (edad JUVENIL)
+        (nombre "El ojo de Argon")
+        (num_paginas 76)
+        (ventas 10000)
+    )
+
+    ([Jim_Theis] of Autor
+        (especializado_en [Fantasia])
+        (nombre "Jim Theis")
+    )
+
+    ([Legitima_defensa] of Libro
+        (es_del_genero [Suspense] [Ficción_criminal])
+        (escrito_por [John_Grisham])
+        (critica 7.41)
+        (edad ADULTO)
+        (nombre "Legitima defensa")
+        (num_paginas 656)
+        (ventas 2500000)
+    )
+
+    ([John_Grisham] of Autor
+        (especializado_en [suspense] [Ficción_criminal])
+        (nombre "John Grisham")
+    )
+
+    ([Ficción_criminal] of Genero
+        (nombre "Ficción criminal")
+    )
+
+    ([La_Tapadera] of Libro
+        (es_del_genero [Suspense] [Ficción_criminal])
+        (escrito_por [John_Grisham])
+        (critica 9.1)
+        (edad ADULTO)
+        (nombre "La Tapadera")
+        (num_paginas 432)
+        (ventas 3000000)
+    )
+
 )
