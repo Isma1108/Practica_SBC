@@ -117,7 +117,7 @@
          (critica  9.0)
          (edad  ADOLESCENTE)
          (nombre  "Asesinato en el Orient Express")
-         (num_paginas  256)
+         (num_paginas  190) ;256
          (ventas  100000000)
     )
 
@@ -640,6 +640,7 @@
 
     ;1. 
 
+    ;2
 
 
     ;3.
@@ -647,13 +648,48 @@
     (bind ?lEdad (send ?libro get-edad))
     
     (if (eq ?uEdad ?lEdad) then
-        (bind ?puntos (+ ?puntos 5))
+        (bind ?puntos (+ ?puntos 15))
         (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Es adecuado para tu edad"))
     )
 
+    ;4. 
+    (bind ?Cr (send ?libro get-critica))
+    (bind ?uCr (send ?usuario get-buena_critica))
 
+    (if (and (>= ?Cr 8) (eq ?uCr TRUE)) then
+        (bind ?puntos (+ ?puntos 5))
+        (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Tiene buena crítica"))
+    )
 
-    ;
+    ;5.
+    (bind ?Ventas (send ?libro get-ventas))
+    (bind ?uVentas (send ?usuario get-buenas_ventas))
+
+    (if (and (>= ?Ventas 1000000) (eq ?uVentas TRUE)) then
+        (bind ?puntos (+ ?puntos 5))
+        (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Tiene buenas ventas"))
+    )
+
+    ;6.
+
+    ;7.
+    (bind ?numP (send ?libro get-num_paginas))
+    (bind ?tiempo (send ?usuario get-tiempo_disponible))
+
+    (if (eq ?tiempo BAJO)
+        then 
+        (if (<= ?numP 200)
+            then 
+            (bind ?puntos (+ ?puntos 9))
+            (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Es adecuado para tu tiempo disponible"))
+            else (if (>= ?numP 500) then (bind ?puntos (- ?puntos 5)))
+        )
+        else 
+        (if (and (eq ?tiempo ALTO) (>= ?numP 500)) then
+            (bind ?puntos (+ ?puntos 3))
+            (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Es adecuado para tu tiempo disponible"))
+        )
+    )
 
     ;etc
 
@@ -669,8 +705,7 @@
 (defrule asociacionHeuristica::ordenacion
     (declare(salience -10))
     ?l1 <- (libroConPuntuacion (index ?index1) (libro ?libro1) (puntuacion ?puntuacion1) (motivos $?motivos1))
-    ?l2 <- (libroConPuntuacion (index ?index2&:(= ?index2 (+ ?index1 1))) (libro ?libro2) (puntuacion ?puntuacion2&:(> ?puntuacion2 ?puntuacion1)) (motivos $?motivos2))
-    =>
+    ?l2 <- (libroConPuntuacion (index ?index2&:(= ?index2 (+ ?index1 1))) (libro ?libro2) (puntuacion ?puntuacion2&:(> ?puntuacion2 ?puntuacion1)) (motivos $?motivos2)) =>
     (modify ?l1 (libro ?libro2) (puntuacion ?puntuacion2) (motivos $?motivos2))
     (modify ?l2 (libro ?libro1) (puntuacion ?puntuacion1) (motivos $?motivos1))
 )
@@ -706,6 +741,7 @@
         (if (= ?i 1) then (printout t "Los motivos son: " crlf))
         (printout t "    "(nth$ ?i $?motivos) crlf)
     )
+    (printout t crlf)
     (retract ?l)
 )
 
