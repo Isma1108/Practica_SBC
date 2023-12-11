@@ -620,7 +620,29 @@
     ;coinciden con las preferencias del usuario
     ;Las ponderaciones estan por determinar
 
-    ;1. Las edades coinciden
+
+    ;(ponderaciones)
+    ;1. Es de uno de sus autores favoritos (20)
+    ;2. Es de uno de sus generos favoritos (10)
+    ;3. Es adecuado para su edad (15)
+    ;4. Tiene buena crítica y el usuario se fia (5)
+    ;5. Tiene buenas ventas y al usuario le gustan los libros vendidos (5)
+    ;6. En funcion del lugar de lectura del usuario:
+    ; - concurrido -> sumamos libro genero facil (8), restamos dificil (-6) (a no ser que sea un genero que le gusta al user)
+    ; - tranquilo -> nada
+    ;7. En funcion del tiempo disponible del usuario y las paginas del libro sumamos o restamos. 
+    ; - poco tiempo: sumamos a los cortos (9), restamos a los largos (5)
+    ; - mucho tiempo: sumamos a los largos (3)
+
+    ;libros: <= 200 paginas -> corto
+    ;        <= 500 -> medio, else largo
+
+
+    ;1. 
+
+
+
+    ;3.
     (bind ?uEdad (send ?usuario get-edad))
     (bind ?lEdad (send ?libro get-edad))
     
@@ -628,6 +650,10 @@
         (bind ?puntos (+ ?puntos 5))
         (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Es adecuado para tu edad"))
     )
+
+
+
+    ;
 
     ;etc
 
