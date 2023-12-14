@@ -103,30 +103,12 @@
          (nombre  "Acción")
     )
 
-    ([Agatha_Christie] of Autor
-         (nombre  "Agatha Christie")
-    )
-
-    ([Alejandro_Dumas] of Autor
-         (nombre  "Alejandro Dumas")
-    )
-
-    ([Asesinato_en_el_Orient_Express] of Libro
-         (es_del_genero  [Misterio] [Suspense])
-         (escrito_por  [Agatha_Christie])
-         (critica  9.0)
-         (edad  ADOLESCENTE)
-         (nombre  "Asesinato en el Orient Express")
-         (num_paginas  190) ;256
-         (ventas  100000000)
+    ([Fantasia] of Genero
+         (nombre  "Fantasia")
     )
 
     ([Aventuras] of Genero
          (nombre  "Aventuras")
-    )
-
-    ([Bram_Stoker] of Autor
-         (nombre  "Bram Stoker")
     )
 
     ([Ciencia_ficción] of Genero
@@ -137,15 +119,154 @@
          (nombre  "Comedia")
     )
 
-    ([Dracula] of Libro
-         (es_del_genero  [Terror])
-         (escrito_por  [Bram_Stoker])
-         (critica  9.2)
-         (edad  ADOLESCENTE)
-         (nombre  "Dracula")
-         (num_paginas  418)
-         (ventas  200000000)
+    ([Misterio] of Genero
+         (nombre  "Misterio")
     )
+
+    ([Romance] of Genero
+         (nombre  "Romance")
+    )
+
+    ([Suspense] of Genero
+         (nombre  "Suspense")
+    )
+
+    ([Terror] of Genero
+         (nombre  "Terror")
+    )
+
+    ([Agatha_Christie] of Autor
+         (nombre  "Agatha Christie")
+    )
+
+
+    ([Alejandro_Dumas] of Autor
+         (nombre  "Alejandro Dumas")
+    )
+
+
+    ([Groucho_Marx] of Autor
+         (nombre  "Groucho Marx")
+    )
+
+    ([Franz_Kafka] of Autor
+    (especializado_en [Fantasia] [Misterio] [Terror])
+    (nombre "Franz Kafka")
+)
+
+([C.S_Lewis] of Autor
+    (especializado_en [Fantasia] [Aventuras])
+    (nombre "C.S. Lewis")
+)
+
+([Robert_Louis_Stevenson] of Autor
+    (especializado_en [Misterio] [Suspense] [Terror])
+    (nombre "Robert Louis Stevenson")
+)
+
+([H.G_Wells] of Autor
+    (especializado_en [Ciencia_ficción] [Suspense])
+    (nombre "H.G. Wells")
+)
+
+([Mary_Shelley] of Autor
+    (especializado_en [Terror])
+    (nombre "Mary Shelley")
+)
+
+([Herman_Melville] of Autor
+    (especializado_en [Aventuras])
+    (nombre "Herman Melville")
+)
+
+([Aldous_Huxley] of Autor
+    (especializado_en [Ciencia_ficción])
+    (nombre "Aldous Huxley")
+)
+
+([Alexandre_Dumas] of Autor
+    (especializado_en [Aventuras])
+    (nombre "Alexandre Dumas")
+)
+
+([George_Orwell_2] of Autor
+    (especializado_en [Fantasia])
+    (nombre "George Orwell")
+)
+
+([J.K._Rowling] of Autor
+    (especializado_en [Fantasia] [Aventuras])
+    (nombre "J.K. Rowling")
+)
+
+([Dan_Brown] of Autor
+    (especializado_en [Misterio] [Suspense])
+    (nombre "Dan Brown")
+)
+
+([Jules_Verne] of Autor
+    (especializado_en [Aventuras] [Ciencia_ficción])
+    (nombre "Jules Verne")
+)
+
+([Arthur_Conan_Doyle] of Autor
+    (especializado_en [Misterio] [Aventuras])
+    (nombre "Arthur Conan Doyle")
+)
+
+([Ray_Bradbury] of Autor
+    (especializado_en [Ciencia_ficción])
+    (nombre "Ray Bradbury")
+)
+
+([Margaret_Atwood] of Autor
+    (especializado_en [Ciencia_ficción] [Fantasia])
+    (nombre "Margaret Atwood")
+)
+
+([Philip_K_Dick] of Autor
+    (especializado_en [Ciencia_ficción] [Suspense])
+    (nombre "Philip K. Dick")
+)
+
+([H.P_Lovecraft] of Autor
+    (especializado_en [Terror] [Ciencia_ficción])
+    (nombre "H.P. Lovecraft")
+)
+
+([Roald_Dahl] of Autor
+    (especializado_en [Fantasia] [Misterio])
+    (nombre "Roald Dahl")
+)
+
+([Isaac_Asimov] of Autor
+    (especializado_en [Ciencia_ficción])
+    (nombre "Isaac Asimov")
+)
+
+([Terry_Pratchett] of Autor
+    (especializado_en [Fantasia] [Comedia])
+    (nombre "Terry Pratchett")
+)
+
+([Ursula_K_Le_Guin] of Autor
+    (especializado_en [Fantasia] [Ciencia_ficción])
+    (nombre "Ursula K. Le Guin")
+)
+
+
+
+
+    ([Asesinato_en_el_Orient_Express] of Libro
+         (es_del_genero  [Misterio] [Suspense])
+         (escrito_por  [Agatha_Christie])
+         (critica  9.0)
+         (edad  ADOLESCENTE)
+         (nombre  "Asesinato en el Orient Express")
+         (num_paginas  190)
+         (ventas  100000000)
+    )
+
 
     ([El_Señor_de_los_Anillos] of Libro
          (es_del_genero  [Aventuras] [Fantasia])
@@ -155,28 +276,6 @@
          (nombre  "El Señor de los Anillos")
          (num_paginas  576)
          (ventas  110000000)
-    )
-
-    ([Fantasia] of Genero
-         (nombre  "Fantasia")
-    )
-
-    ([Groucho_Marx] of Autor
-         (nombre  "Groucho Marx")
-    )
-
-    ([J.R.R._Tolkien] of Autor
-         (nombre  "J.R.R. Tolkien")
-    )
-
-    ([Los_juegos_del_hambre] of Libro
-         (es_del_genero  [Aventuras] [Ciencia_ficción])
-         (escrito_por  [Suzanne_Collins])
-         (critica  8.0)
-         (edad  ADOLESCENTE)
-         (nombre  "Los juegos del hambre")
-         (num_paginas  374)
-         (ventas  23000000)
     )
 
     ([Los_tres_mosqueteros] of Libro
@@ -199,27 +298,225 @@
          (ventas  25000)
     )
 
-    ([Misterio] of Genero
-         (nombre  "Misterio")
-    )
+    ([El_Juego_del_Angel] of Libro
+    (es_del_genero [Misterio] [Suspense])
+    (escrito_por [Carlos_Ruiz_Zafón])
+    (critica 8.5)
+    (edad ADULTO)
+    (nombre "El Juego del Ángel")
+    (num_paginas 500)
+    (ventas 15000000)
+)
 
-    ([Romance] of Genero
-         (nombre  "Romance")
-    )
+([Ready_Player_One] of Libro
+    (es_del_genero [Ciencia_ficción])
+    (escrito_por [Ernest_Cline])
+    (critica 9.2)
+    (edad ADULTO)
+    (nombre "Ready Player One")
+    (num_paginas 372)
+    (ventas 8000000)
+)
 
-    ([Suspense] of Genero
-         (nombre  "Suspense")
-    )
+([Cien_años_de_soledad] of Libro
+    (es_del_genero [Fantasia] [Romance])
+    (escrito_por [Gabriel_García_Márquez])
+    (critica 9.8)
+    (edad ADULTO)
+    (nombre "Cien años de soledad")
+    (num_paginas 432)
+    (ventas 30000000)
+)
 
-    ([Suzanne_Collins] of Autor
-         (especializado_en  [Aventuras] [Ciencia_ficción])
-         (nombre  "Suzanne Collins")
-    )
+([El_Código_Da_Vinci] of Libro
+    (es_del_genero [Misterio] [Suspense])
+    (escrito_por [Dan_Brown])
+    (critica 9.0)
+    (edad ADULTO)
+    (nombre "El Código Da Vinci")
+    (num_paginas 589)
+    (ventas 80000000)
+)
 
-    ([Terror] of Genero
-         (nombre  "Terror")
-    )
+([1984] of Libro
+    (es_del_genero [Ciencia_ficción])
+    (escrito_por [George_Orwell])
+    (critica 9.5)
+    (edad ADULTO)
+    (nombre "1984")
+    (num_paginas 328)
+    (ventas 25000000)
+)
 
+([Orgullo_y_Prejuicio] of Libro
+    (es_del_genero [Romance])
+    (escrito_por [Jane_Austen])
+    (critica 8.7)
+    (edad ADULTO)
+    (nombre "Orgullo y Prejuicio")
+    (num_paginas 279)
+    (ventas 12000000)
+)
+
+([El_Hobbit] of Libro
+    (es_del_genero [Fantasia] [Aventuras])
+    (escrito_por [J.R.R_Tolkien])
+    (critica 9.0)
+    (edad ADULTO)
+    (nombre "El Hobbit")
+    (num_paginas 310)
+    (ventas 15000000)
+)
+
+([Drácula] of Libro
+    (es_del_genero [Terror])
+    (escrito_por [Bram_Stoker])
+    (critica 8.9)
+    (edad ADULTO)
+    (nombre "Drácula")
+    (num_paginas 418)
+    (ventas 10000000)
+)
+
+([Los_Juegos_del_Hambre] of Libro
+    (es_del_genero [Aventuras] [Ciencia_ficción])
+    (escrito_por [Suzanne_Collins])
+    (critica 9.2)
+    (edad ADOLESCENTE)
+    (nombre "Los Juegos del Hambre")
+    (num_paginas 374)
+    (ventas 65000000)
+)
+
+([El_Silmarillion] of Libro
+    (es_del_genero [Fantasia])
+    (escrito_por [J.R.R_Tolkien])
+    (critica 8.8)
+    (edad ADULTO)
+    (nombre "El Silmarillion")
+    (num_paginas 365)
+    (ventas 9000000)
+)
+
+([Crónica_de_una_muerte_anunciada] of Libro
+    (es_del_genero [Misterio])
+    (escrito_por [Gabriel_García_Márquez])
+    (critica 8.6)
+    (edad ADULTO)
+    (nombre "Crónica de una muerte anunciada")
+    (num_paginas 128)
+    (ventas 5000000)
+)
+
+([El_Origen] of Libro
+    (es_del_genero [Ciencia_ficción] [Suspense])
+    (escrito_por [Dan_Brown])
+    (critica 9.3)
+    (edad ADULTO)
+    (nombre "El Origen")
+    (num_paginas 460)
+    (ventas 18000000)
+)
+
+([La_Metamorfosis] of Libro
+    (es_del_genero [Fantasia])
+    (escrito_por [Franz_Kafka])
+    (critica 8.9)
+    (edad ADULTO)
+    (nombre "La Metamorfosis")
+    (num_paginas 55)
+    (ventas 7000000)
+)
+
+([Las_Crónicas_de_Narnia] of Libro
+    (es_del_genero [Fantasia] [Aventuras])
+    (escrito_por [C.S_Lewis])
+    (critica 9.1)
+    (edad INFANTIL)
+    (nombre "Las Crónicas de Narnia")
+    (num_paginas 767)
+    (ventas 28000000)
+)
+
+([El_Extraño_Caso_del_Doctor_Jekyll_y_Mr_Hyde] of Libro
+    (es_del_genero [Misterio] [Suspense] [Terror])
+    (escrito_por [Robert_Louis_Stevenson])
+    (critica 8.7)
+    (edad ADULTO)
+    (nombre "El Extraño Caso del Doctor Jekyll y Mr Hyde")
+    (num_paginas 144)
+    (ventas 6000000)
+)
+
+([La_Guerra_de_los_Mundos] of Libro
+    (es_del_genero [Ciencia_ficción])
+    (escrito_por [H.G_Wells])
+    (critica 9.4)
+    (edad ADULTO)
+    (nombre "La Guerra de los Mundos")
+    (num_paginas 288)
+    (ventas 11000000)
+)
+
+([Frankenstein] of Libro
+    (es_del_genero [Terror])
+    (escrito_por [Mary_Shelley])
+    (critica 8.8)
+    (edad ADULTO)
+    (nombre "Frankenstein")
+    (num_paginas 280)
+    (ventas 8500000)
+)
+
+([Moby_Dick] of Libro
+    (es_del_genero [Aventuras])
+    (escrito_por [Herman_Melville])
+    (critica 9.0)
+    (edad ADULTO)
+    (nombre "Moby Dick")
+    (num_paginas 704)
+    (ventas 9200000)
+)
+
+([El_Hombre_Invisible] of Libro
+    (es_del_genero [Ciencia_ficción] [Suspense])
+    (escrito_por [H.G_Wells])
+    (critica 8.6)
+    (edad ADULTO)
+    (nombre "El Hombre Invisible")
+    (num_paginas 208)
+    (ventas 4800000)
+)
+
+([Un_Mundo_Feliz] of Libro
+    (es_del_genero [Ciencia_ficción])
+    (escrito_por [Aldous_Huxley])
+    (critica 9.3)
+    (edad ADULTO)
+    (nombre "Un Mundo Feliz")
+    (num_paginas 288)
+    (ventas 14000000)
+)
+
+([El_Conde_de_Monte_Cristo] of Libro
+    (es_del_genero [Aventuras])
+    (escrito_por [Alexandre_Dumas])
+    (critica 9.0)
+    (edad ADULTO)
+    (nombre "El Conde de Monte Cristo")
+    (num_paginas 1276)
+    (ventas 18000000)
+)
+
+([La_Granja] of Libro
+    (es_del_genero [Fantasia])
+    (escrito_por [George_Orwell])
+    (critica 9.2)
+    (edad ADULTO)
+    (nombre "La Granja")
+    (num_paginas 112)
+    (ventas 8000000)
+)
 )
 
 ;; Usaremos modulos para estructurar bien el codigo, en vez
