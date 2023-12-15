@@ -109,6 +109,11 @@
     (dificultad MEDIO)
 )
 
+([Drama] of Genero
+    (nombre "Drama")
+    (dificultad MEDIO)
+)
+
 ([Aventuras] of Genero
     (nombre "Aventuras")
     (dificultad MEDIO)
@@ -264,7 +269,15 @@
 )
 
 
-
+    ([El_Color_de_la_Magia] of Libro
+        (es_del_genero [Fantasia] [Comedia])
+        (escrito_por [Terry_Pratchett])
+        (critica 8.2)
+        (edad JUVENIL)
+        (nombre "El Color de la Magia")
+        (num_paginas 288)
+        (ventas 5000000)
+    )
 
     ([Asesinato_en_el_Orient_Express] of Libro
          (es_del_genero  [Misterio] [Suspense])
@@ -1051,9 +1064,9 @@
 
     (bind $?uGenFav(send ?usuario get-gusta_genero))
     (bind $?lGenero (send ?libro get-es_del_genero))
-    (bind $?intersect (intersectionp ?uGenFav ?lGenero))
+    (bind ?intersect (intersectionp ?uGenFav ?lGenero))
 
-    (if (neq (length$ ?intersect) 0) then 
+    (if (eq ?intersect TRUE) then 
         (bind ?puntos (+ ?puntos 10))
         (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Es de tus generos favoritos"))
     )
@@ -1090,26 +1103,37 @@
     (bind ?uSitioFav (send ?usuario get-lugar))
     ;; Primero, mirar si lee en sitio concurrido
 
-    (bind ?primero (nth$ 1 ?lGenero))
-
-    (bind ?dificultad (send ?primero get-dificultad))
+    (bind ?esDificil FALSE)
 
     (if (eq ?uSitioFav CONCURRIDO) then
         ;; El libro está en sus géneros favoritos, solo damos puntuacion si es de un genero fácil
         (if (neq (length$ ?intersect) 0) then 
-            (if (eq FACIL ?dificultad) then
-                (bind ?puntos (+ ?puntos 8))
-                (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Lees en espacios concurridos y es de un género de fácil comprensión"))
+            (loop-for-count (?i 1 (length$ $?lGenero)) do 
+                (bind ?genero (nth$ ?i $?lGenero))
+                (if (eq (send ?genero get-dificultad) FACIL) then 
+                    (bind ?puntos (+ ?puntos 8))
+                    (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Lees en espacios concurridos y es de un género de fácil comprensión"))
+                    (break)
+                )
             )
-        )
         else 
-            (if (eq DIFICIL ?dificultad) then
+            (loop-for-count (?i 1 (length$ $?lGenero)) do
+                (bind ?genero (nth$ ?i $?lGenero))
+                (if (eq (send ?genero get-dificultad) DIFICIL) then 
                 (bind ?puntos (- ?puntos 6))
+                (bind ?esDificil TRUE)
+                (break)
+                )
             )
-            (if (eq FACIL ?dificultad) then
-                (bind ?puntos (+ ?puntos 8))
-                (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Lees en espacios concurridos y es de un género de fácil comprensión"))
-            )
+            (if (eq ?esDificil FALSE) then (loop-for-count (?i 1 (length$ $?lGenero)) do 
+                (bind ?genero (nth$ ?i $?lGenero))
+                (if (eq (send ?genero get-dificultad) FACIL) then 
+                    (bind ?puntos (+ ?puntos 8))
+                    (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Lees en espacios concurridos y es de un género de fácil comprensión"))
+                    (break)
+                )
+            ))
+        )
     )
     ;7.
     (bind ?numP (send ?libro get-num_paginas))
