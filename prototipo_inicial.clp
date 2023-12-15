@@ -1087,6 +1087,30 @@
 
     ;6.
 
+    (bind ?uSitioFav (send ?usuario get-lugar))
+    ;; Primero, mirar si lee en sitio concurrido
+
+    (bind ?primero (nth$ 1 ?lGenero))
+
+    (bind ?dificultad (send ?primero get-dificultad))
+
+    (if (eq ?uSitioFav CONCURRIDO) then
+        ;; El libro está en sus géneros favoritos, solo damos puntuacion si es de un genero fácil
+        (if (neq (length$ ?intersect) 0) then 
+            (if (eq FACIL ?dificultad) then
+                (bind ?puntos (+ ?puntos 8))
+                (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Lees en espacios concurridos y es de un género de fácil comprensión"))
+            )
+        )
+        else 
+            (if (eq DIFICIL ?dificultad) then
+                (bind ?puntos (- ?puntos 6))
+            )
+            (if (eq FACIL ?dificultad) then
+                (bind ?puntos (+ ?puntos 8))
+                (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Lees en espacios concurridos y es de un género de fácil comprensión"))
+            )
+    )
     ;7.
     (bind ?numP (send ?libro get-num_paginas))
     (bind ?tiempo (send ?usuario get-tiempo_disponible))
