@@ -100,40 +100,49 @@
 
 (definstances instances
     ([Acción] of Genero
-         (nombre  "Acción")
-    )
+    (nombre "Acción")
+    (dificultad MEDIO)
+)
 
-    ([Fantasia] of Genero
-         (nombre  "Fantasia")
-    )
+([Fantasia] of Genero
+    (nombre "Fantasía")
+    (dificultad MEDIO)
+)
 
-    ([Aventuras] of Genero
-         (nombre  "Aventuras")
-    )
+([Aventuras] of Genero
+    (nombre "Aventuras")
+    (dificultad MEDIO)
+)
 
-    ([Ciencia_ficción] of Genero
-         (nombre  "Ciencia ficción")
-    )
+([Ciencia_ficción] of Genero
+    (nombre "Ciencia ficción")
+    (dificultad DIFICIL)
+)
 
-    ([Comedia] of Genero
-         (nombre  "Comedia")
-    )
+([Comedia] of Genero
+    (nombre "Comedia")
+    (dificultad FACIL)
+)
 
-    ([Misterio] of Genero
-         (nombre  "Misterio")
-    )
+([Misterio] of Genero
+    (nombre "Misterio")
+    (dificultad MEDIO)
+)
 
-    ([Romance] of Genero
-         (nombre  "Romance")
-    )
+([Romance] of Genero
+    (nombre "Romance")
+    (dificultad MEDIO)
+)
 
-    ([Suspense] of Genero
-         (nombre  "Suspense")
-    )
+([Suspense] of Genero
+    (nombre "Suspense")
+    (dificultad MEDIO)
+)
 
-    ([Terror] of Genero
-         (nombre  "Terror")
-    )
+([Terror] of Genero
+    (nombre "Terror")
+    (dificultad MEDIO)
+)
 
     ([Agatha_Christie] of Autor
          (nombre  "Agatha Christie")
@@ -182,16 +191,6 @@
 ([Aldous_Huxley] of Autor
     (especializado_en [Ciencia_ficción])
     (nombre "Aldous Huxley")
-)
-
-([Alexandre_Dumas] of Autor
-    (especializado_en [Aventuras])
-    (nombre "Alexandre Dumas")
-)
-
-([George_Orwell_2] of Autor
-    (especializado_en [Fantasia])
-    (nombre "George Orwell")
 )
 
 ([J.K._Rowling] of Autor
@@ -252,6 +251,16 @@
 ([Ursula_K_Le_Guin] of Autor
     (especializado_en [Fantasia] [Ciencia_ficción])
     (nombre "Ursula K. Le Guin")
+)
+
+([Carlos_Ruiz_Zafón] of Autor
+    (nombre "Carlos Ruiz Zafón")
+    (especializado_en [Misterio] [Suspense])
+)
+
+([Ernest_Cline] of Autor
+    (nombre "Ernest Cline")
+    (especializado_en [Ciencia_ficción])
 )
 
 
@@ -438,6 +447,8 @@
     (ventas 28000000)
 )
 
+
+
 ([El_Extraño_Caso_del_Doctor_Jekyll_y_Mr_Hyde] of Libro
     (es_del_genero [Misterio] [Suspense] [Terror])
     (escrito_por [Robert_Louis_Stevenson])
@@ -500,7 +511,7 @@
 
 ([El_Conde_de_Monte_Cristo] of Libro
     (es_del_genero [Aventuras])
-    (escrito_por [Alexandre_Dumas])
+    (escrito_por [Alejandro_Dumas])
     (critica 9.0)
     (edad ADULTO)
     (nombre "El Conde de Monte Cristo")
@@ -517,6 +528,88 @@
     (num_paginas 112)
     (ventas 8000000)
 )
+
+
+([El_Crimen_del_Siglo] of Libro
+    (es_del_genero [Misterio] [Suspense])
+    (escrito_por [Dan_Brown])
+    (critica 8.9)
+    (edad ADULTO)
+    (nombre "El Crimen del Siglo")
+    (num_paginas 336)
+    (ventas 950000)
+)
+
+([La_Revolucion_de_las_Ratas] of Libro
+    (es_del_genero [Aventuras] [Fantasia])
+    (escrito_por [C.S_Lewis])
+    (critica 8.5)
+    (edad JUVENIL)
+    (nombre "La Revolución de las Ratas")
+    (num_paginas 240)
+    (ventas 150000)
+)
+
+([El_Susurro_del_Viento] of Libro
+    (es_del_genero [Romance] [Drama])
+    (escrito_por [Margaret_Atwood])
+    (critica 8.7)
+    (edad ADULTO)
+    (nombre "El Susurro del Viento")
+    (num_paginas 368)
+    (ventas 2800000)
+)
+
+([El_Llamado_de_la_Aventura] of Libro
+    (es_del_genero [Aventuras])
+    (escrito_por [Herman_Melville])
+    (critica 9.0)
+    (edad ADULTO)
+    (nombre "El Llamado de la Aventura")
+    (num_paginas 224)
+    (ventas 750000)
+)
+
+([Los_Secretos_del_Corazon] of Libro
+    (es_del_genero [Romance] [Drama])
+    (escrito_por [Jane_Austen])
+    (critica 8.8)
+    (edad ADULTO)
+    (nombre "Los Secretos del Corazón")
+    (num_paginas 400)
+    (ventas 3800000)
+)
+
+([La_Noche_de_las_Mil_Estrellas] of Libro
+    (es_del_genero [Fantasia])
+    (escrito_por [J.R.R_Tolkien])
+    (critica 9.2)
+    (edad ADULTO)
+    (nombre "La Noche de las Mil Estrellas")
+    (num_paginas 528)
+    (ventas 5200000)
+)
+
+([El_Pergamino_Enigmático] of Libro
+    (es_del_genero [Misterio])
+    (escrito_por [Agatha_Christie])
+    (critica 8.6)
+    (edad ADULTO)
+    (nombre "El Pergamino Enigmático")
+    (num_paginas 320)
+    (ventas 1100000)
+)
+
+([El_Suspiro_de_la_Noche] of Libro
+    (es_del_genero [Terror])
+    (escrito_por [Mary_Shelley])
+    (critica 9.3)
+    (edad ADULTO)
+    (nombre "El Suspiro de la Noche")
+    (num_paginas 432)
+    (ventas 8900000)
+)
+
 )
 
 ;; Usaremos modulos para estructurar bien el codigo, en vez
@@ -621,6 +714,7 @@
 	?response
 )
 
+;;; Funcion para una pregunta de respuesta SI/NO (acepta S/s, N/n)
 (deffunction MAIN::preguntaSiNo (?pregunta)
    (format t "%s [S/N] " ?pregunta)
    (bind ?resp (read))
@@ -636,7 +730,7 @@
    )
 )
 
-
+;;; Función para una pregunta de índice con respuesta única
 (deffunction MAIN::preguntaConIndices (?pregunta $?valoresPosibles)
    (bind ?indice 1)
    (bind ?linea (format nil "%s" ?pregunta))
@@ -653,6 +747,7 @@
    ?resp
 )
 
+;;; Función para una pregunta de índice multirespuesta
 (deffunction MAIN::preguntaConRespuestaMultiple (?pregunta $?valores-posibles)
     (bind ?linea (format nil "%s" ?pregunta))
     (printout t ?linea crlf)
@@ -675,7 +770,15 @@
     ?lista
 )
 
-;; EN CADA REGALA QUE SE EJECUTA COMO ULTIMA EN CADA MODULO,
+;;; Funcion para mirar si existe algún elemento compartido en dos variables multislot
+(deffunction intersectionp (?m1 ?m2)
+   (foreach ?i1 ?m1
+      (foreach ?i2 ?m2
+         (if (eq ?i1 ?i2)
+            then (return TRUE))))
+   (return FALSE))
+
+;; EN CADA REGLA QUE SE EJECUTA COMO ULTIMA EN CADA MODULO,
 ;; USAREMOS (focus nuevo_modulo) para pasar al siguiente modulo.
 
 ;; ---------------------------------------------------
@@ -936,9 +1039,24 @@
 
 
     ;1. 
+    (bind $?uAutorFav (send ?usuario get-gusta_autor))
+    (bind ?lAutor (send ?libro get-escrito_por))
+
+    (if (member$ ?lAutor ?uAutorFav) then 
+        (bind ?puntos (+ ?puntos 20))
+        (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Es de tus autores favoritos"))
+    )
 
     ;2
 
+    (bind $?uGenFav(send ?usuario get-gusta_genero))
+    (bind $?lGenero (send ?libro get-es_del_genero))
+    (bind $?intersect (intersectionp ?uGenFav ?lGenero))
+
+    (if (neq (length$ ?intersect) 0) then 
+        (bind ?puntos (+ ?puntos 10))
+        (bind $?motivos (insert$ $?motivos (+ (length$ $?motivos) 1) "Es de tus generos favoritos"))
+    )
 
     ;3.
     (bind ?uEdad (send ?usuario get-edad))
