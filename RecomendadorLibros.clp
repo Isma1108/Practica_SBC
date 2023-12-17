@@ -239,7 +239,21 @@
     (nombre "Terry Pratchett")
 )
 
+([Gabriel_García_Márquez] of Autor
+    (especializado_en [Fantasía] [Misterio])
+    (nombre "Gabriel García Márquez")
+)
 
+
+([George_Orwell] of Autor
+    (especializado_en [Ciencia_ficción])
+    (nombre "George Orwell")
+)
+
+([J.R.R_Tolkien] of Autor
+    (especializado_en [Fantasía])
+    (nombre "J.R.R. Tolkien")
+)
 
 ;; añadir libro
 ([Ursula_K_Le_Guin] of Autor
@@ -257,6 +271,21 @@
     (especializado_en [Ciencia_ficción])
 )
 
+([Bram_Stoker] of Autor
+    (nombre "Bram Stoker")
+    (especializado_en [Terror])
+)
+
+([Suzanne_Collins] of Autor
+    (nombre "Suzanne Collins")
+    (especializado_en [Aventuras])
+)
+
+
+([Jane_Austen] of Autor
+    (nombre "Jane Austen")
+    (especializado_en [Drama])
+)
 
     ([El_Color_de_la_Magia] of Libro
         (es_del_genero [Fantasia] [Comedia])
@@ -735,13 +764,6 @@
     (multislot motivos (type STRING))
 )
 
-(deftemplate MAIN::libroRecomendado
-    (slot nombre (type STRING))   
-    (slot autor (type STRING))
-    (multislot motivos (type STRING))
-)
-
-
 ;; ----------------------------------------
 ;; ------------- FUNCIONES ----------------
 ;; ----------------------------------------
@@ -813,7 +835,7 @@
 )
 
 ;;; Funcion para mirar si existe algún elemento compartido en dos variables multislot
-(deffunction intersectionp (?m1 ?m2)
+(deffunction MAIN::intersectionp (?m1 ?m2)
    (foreach ?i1 ?m1
       (foreach ?i2 ?m2
          (if (eq ?i1 ?i2)
@@ -860,7 +882,10 @@
 	(bind ?resp (preguntaConIndices "Con que frecuencia lees? " "Diariamente" "Ocasionalmente" "Semanalmente"))
 	(if (= ?resp 1) 
 		then (modify ?datos (frecuencia DIARIAMENTE))
-		else (modify ?datos (frecuencia OCASIONALMENTE))
+        else (if (= ?resp 2)
+            then (modify ?datos (frecuencia OCASIONALMENTE))
+		    else (modify ?datos (frecuencia SEMANALMENTE))
+        )
 	)
 	(printout t crlf)
 )
@@ -969,24 +994,25 @@
     ?q <- (datosUsuario (periodo ?p) (frecuencia ?f))
     (not (tiempoDisponibleDefinido))
     =>
-    (if (eq ?f DIARIA)
+    (if (eq ?f DIARIAMENTE)
         then (bind ?frecuencia 4)
-        else (if (eq ?f FRECUENTE)
-            then (bind ?frecuencia 3)
-            else (if (eq ?f OCASIONAL)
-                then (bind ?frecuencia 2)
-                else (bind ?frecuencia 1)
-            )
+
+        else (if (eq ?f OCASIONALMENTE)
+            then (bind ?frecuencia 2)
+            else (bind ?frecuencia 1)
         )
     )
-    (if (eq ?p BAJO)
+    (if (<= ?p 10)
         then (bind ?periodo 1)
-        else (if (eq ?p MEDIO)
+        else (if (<= ?p 40)
             then (bind ?periodo 2)
             else (bind ?periodo 3)
         )
     )
     (bind ?tiempoDisponible (+ (* 0.7 ?frecuencia) (* 0.3 ?periodo)))
+    (printout t "tiempoDisponible: " ?tiempoDisponible crlf)
+    (printout t "frecuencia: " ?frecuencia crlf)
+    (printout t "periodo: " ?periodo crlf)
     (if (>= ?tiempoDisponible 3.0)
         then (bind ?tp ALTO)
         else (if (>= ?tiempoDisponible 2.0)
