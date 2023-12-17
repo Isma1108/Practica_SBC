@@ -239,7 +239,21 @@
     (nombre "Terry Pratchett")
 )
 
+([Gabriel_García_Márquez] of Autor
+    (especializado_en [Fantasía] [Misterio])
+    (nombre "Gabriel García Márquez")
+)
 
+
+([George_Orwell] of Autor
+    (especializado_en [Ciencia_ficción])
+    (nombre "George Orwell")
+)
+
+([J.R.R_Tolkien] of Autor
+    (especializado_en [Fantasía])
+    (nombre "J.R.R. Tolkien")
+)
 
 ;; añadir libro
 ([Ursula_K_Le_Guin] of Autor
@@ -257,6 +271,21 @@
     (especializado_en [Ciencia_ficción])
 )
 
+([Bram_Stoker] of Autor
+    (nombre "Bram Stoker")
+    (especializado_en [Terror])
+)
+
+([Suzanne_Collins] of Autor
+    (nombre "Suzanne Collins")
+    (especializado_en [Aventuras])
+)
+
+
+([Jane_Austen] of Autor
+    (nombre "Jane Austen")
+    (especializado_en [Drama])
+)
 
     ([El_Color_de_la_Magia] of Libro
         (es_del_genero [Fantasia] [Comedia])
