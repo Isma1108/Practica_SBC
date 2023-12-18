@@ -11,4 +11,4 @@ Para ejecutar el prototipo en una terminal de linux:
 En caso de querer hacer reejecuciones no es necesario salir del interprete, basta
 con un (reset) seguido de (run).
 
-En el ficher Turtle ontologia.ttl se encuentra la ontologia para ser visualizada en Protegé.
+En el fichero Turtle ontologia.ttl se encuentra la ontologia para ser visualizada en Protegé.
