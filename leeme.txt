@@ -4,35 +4,11 @@ Para ejecutar el prototipo en una terminal de linux:
 	clips
 
 2. Dentro del interprete, ejecutar los siguientes comandos de forma secuencial:
-	(load prototipo_inicial.clp)
+	(load RecomendadorLibros.clp)
 	(reset)
 	(run)
 
-Tenemos pensado para la entrega final hacer algun script que lanze el programa
-de forma automatica y que el usuario no tenga que ejecutarlo manualmente.
+En caso de querer hacer reejecuciones no es necesario salir del interprete, basta
+con un (reset) seguido de (run).
 
-
-##### DESCRIPCION DEL PROTOTIPO #####
-
-La idea que hemos seguido para programar este prototipo es, a partir de una serie de preguntas
-que hacemos al usuario para obtener informacion de su perfil y sus preferencias, abstraer una instancia
-de usuario con atributos determinados y seguidamente "puntuar" todos los libros de los que se dispone.
-
-El "puntuar" se refiere a dar ciertos puntos por cada caracerística del libro que encaje con las 
-preferencias del usuario (por ejemplo, damos 5 puntos si es adecuado para su edad, 10 puntos si es
-de un autor preferido para él, etc). El peso de los puntos a dar por cada motivo esta por determinar para 
-la entrega final. Cada vez que se otorgan puntos a un libro tambien se añade el motivo en el hecho correspondiente,
-de forma que luego es facil mostrar los motivos al usuario.
-
-Despues de puntuar, se ordenan los libros en base a sus puntos, y se muestra al usuario los 3 libros con mayor
-cantidad de puntos como recomendacion, con los respectivos motivos. 
-
-Para esta entrega no nos ha dado tiempo de dar puntos por varios motivos, solo nos ha dado tiempo de dar puntos 
-si el libro es adecuado para la edad del lector. De todos modos, toda la parte de recopilacion de informacion (preguntas),
-abstraccion e impresion del resultadp ya esta completa o casi-completa, añadir puntos por otros motivos solo seria añadir
-codigo en la regla de crear hechos de librosPuntuados. Es por esto que hay preguntas que se hacen al usuario que no influyen
-en la recomendacion actual.
-
-Por otro lado, sabemos que tenemos pocas instancias, ya que nos hemos centrado en el buen funcionamiento del SBC antes
-de como generar muchas instancias. De cara a la entrega final pondremos muchas mas instancias.
-
+En el ficher Turtle ontologia.ttl se encuentra la ontologia para ser visualizada en Protegé.
